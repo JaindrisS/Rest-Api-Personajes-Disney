@@ -9,6 +9,7 @@ class Server {
     this.Paths = {
       personajes: "/personajes",
       peliculas: "/peliculas",
+      usuarios: "/auth",
     };
     //Conectar base datos
     this.ConectarDB();
@@ -30,6 +31,7 @@ class Server {
   routers() {
     this.app.use(this.Paths.personajes, require("../routers/personajes"));
     this.app.use(this.Paths.peliculas, require("../routers/peliculas"));
+    this.app.use(this.Paths.usuarios, require("../routers/auth-usuarios"));
   }
 
   listen() {

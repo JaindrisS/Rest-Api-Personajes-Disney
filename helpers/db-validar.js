@@ -1,11 +1,21 @@
 const personaje = require("../models/personaje");
 const pelicula = require("../models/pelicula");
+const Usuario = require("../models/usuario");
+const Rol = require("../models/rol");
 
 const ExisteNombre = async (nombre = "") => {
   // Verificar si el correo existe
   const nombreExiste = await personaje.findOne({ nombre });
   if (nombreExiste) {
     throw new Error(`El nombre del personaje: ${nombre}, ya está registrado`);
+  }
+};
+
+const existeNombreUsuario = async (nombre = "") => {
+  const nombreExiste = await Usuario.findOne({ nombre });
+
+  if (nombreExiste) {
+    throw new Error(`El nombre de usuario ${nombre} ya esta registrado`);
   }
 };
 
@@ -33,9 +43,28 @@ const existePeliculaPorId = async (id) => {
   }
 };
 
+const existeCorreo = async (correo = "") => {
+  const correoExiste = await Usuario.findOne({ correo });
+
+  if (correoExiste) {
+    throw Error(`El correo ${correo} ya se encuentra registrado`);
+  }
+};
+
+const existeRol = async (rol = "") => {
+  const rolExiste = await Rol.findOne({ rol });
+
+  if (!rolExiste) {
+    throw new Error(`el rol ${rol} no esta registrado en la base de datos`);
+  }
+};
+
 module.exports = {
   ExisteNombre,
   existePersonajePorId,
   ExisteTitulo,
   existePeliculaPorId,
+  existeCorreo,
+  existeNombreUsuario,
+  existeRol,
 };
