@@ -7,5 +7,4 @@ server.listen();
 
 server.middleware();
 
-
 // crear jwt para la ruta de acceso

@@ -1,6 +1,7 @@
 const { response, request } = require("express");
 const bcryptjs = require("bcryptjs");
 const Usuarios = require("../models/usuario");
+const { generarJWT } = require("../helpers/generarJWT");
 
 // registrar el usuario
 const registrarUsuarios = async (req, res = response) => {
@@ -18,6 +19,7 @@ const registrarUsuarios = async (req, res = response) => {
   res.status(201).json({ usuario });
 };
 
+// Obtener usuarios guardados es la base de dats
 const obtenerUsuarios = async (req = request, res = response) => {
   const usuario = await Usuarios.find({ estado: true });
 
@@ -57,10 +59,12 @@ const acceso = async (req, res = response) => {
     }
 
     // crear jwt
+    const token = await generarJWT(usuario.id);
 
     res.json({
       msg: "acceso listo",
       usuario,
+      token,
     });
   } catch (error) {
     console.error(error);
