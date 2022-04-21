@@ -24,4 +24,49 @@ const obtenerUsuarios = async (req = request, res = response) => {
   res.status(200).json({ usuario });
 };
 
-module.exports = { registrarUsuarios, obtenerUsuarios };
+// acesso de usuarios
+
+const acceso = async (req, res = response) => {
+  const { correo, password } = req.body;
+
+  try {
+    // verificando si el correo existe
+    const usuario = await Usuarios.findOne({ correo });
+    if (!usuario) {
+      return res.status(400).json({
+        msg: "El usuario o el password no es valido",
+      });
+    }
+
+    // verificar si el estado es true o a sido borrado
+
+    if (!usuario.estado) {
+      return res.status(400).json({
+        msg: "el usuario o el password no es valido - estado true",
+      });
+    }
+
+    // veficar el password
+
+    const passwordValido = bcryptjs.compareSync(password, usuario.password);
+
+    if (!passwordValido) {
+      res.status(400).json({
+        msg: "el usuario o password no es valido -  password false",
+      });
+    }
+
+    // crear jwt
+
+    res.json({
+      msg: "acceso listo",
+      usuario,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({ msg: "comunicarse con el administrador" });
+  }
+};
+
+module.exports = { registrarUsuarios, obtenerUsuarios, acceso };

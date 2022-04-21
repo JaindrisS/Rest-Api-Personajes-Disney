@@ -6,12 +6,21 @@ const {
   existeRol,
 } = require("../helpers/db-validar");
 const { validarCampos } = require("../middleware/validarCampos");
-const { registrarUsuarios } = require("../controllers/auth-usuarios");
+const { registrarUsuarios, acceso } = require("../controllers/auth-usuarios");
 
 const router = Router();
 
-// login de usuario
-router.post("/");
+// acceso de usuario
+router.post(
+  "/acceso",
+  [
+    body("correo", "El correo es obligatorio").isEmail(),
+    body("password", "El password es obligatorio, minimo 6 numeros")
+      .notEmpty()
+      .isLength({ min: 6 }),
+  ],
+  acceso
+);
 
 // registrar usuarios
 router.post(
