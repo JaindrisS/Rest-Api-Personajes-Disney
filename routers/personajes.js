@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { body, param } = require("express-validator");
 const { ExisteNombre, existePersonajePorId } = require("../helpers/db-validar");
-const { validarCampos } = require("../middleware/validarCampos");
+const { validarCampos, validarJwt } = require("../middleware/index");
 const {
   obtenerPersonaje,
   crearPersonaje,
@@ -21,6 +21,7 @@ router.get("/:id");
 router.post(
   "/",
   [
+    validarJwt,
     body("nombre", "El nombre es obligatorio").not().isEmpty(),
     body("historia", "la historia es obligatoria").not().isEmpty(),
     body("PeliculaOserie", "El nombre es obligatorio").not().isEmpty(),

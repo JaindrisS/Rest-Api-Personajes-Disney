@@ -7,4 +7,5 @@ server.listen();
 
 server.middleware();
 
-// crear jwt para la ruta de acceso
+// Crear validacion de jwt incluir en las rutas necesarias
+// hacer la verificacion de roles
