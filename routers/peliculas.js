@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const { body, param } = require("express-validator");
 const { ExisteTitulo, existePeliculaPorId } = require("../helpers/db-validar");
-const { validarCampos } = require("../middleware/validarCampos");
+const { validarCampos, validarJwt, tieneRol } = require("../middleware/index");
 const {
-  obtenerPelicula,
+  obtenerPeliculas,
   crearPelicula,
   actualizarPelicula,
   borrarPelicula,
@@ -12,7 +12,7 @@ const {
 const router = Router();
 
 //obtener todas las peliculas
-router.get("/", obtenerPelicula);
+router.get("/", obtenerPeliculas);
 
 //obtener una pelicula
 router.get("/:id", (req, res) => {
@@ -24,6 +24,8 @@ router.post(
   "/",
   [
     [
+      validarJwt,
+      tieneRol("ADMIN_ROL", "USER_ROL"),
       body("titulo", "El titulo es obligatorio").not().isEmpty(),
       body("fechaDeCreacion", "la fecha es olbligatoria es obligatoria")
         .not()
@@ -48,7 +50,7 @@ router.post(
         "Personajes Asociados tiene que tener los elementos en un array"
       ).isArray({ min: 1 }),
 
-      body("titulo").custom(ExisteTitulo),
+      // body("titulo").custom(ExisteTitulo),
       validarCampos,
     ],
   ],
@@ -59,6 +61,8 @@ router.post(
 router.put(
   "/:id",
   [
+    validarJwt,
+    tieneRol("ADMIN_ROL", "USER_ROL"),
     param("id", "No es un ID válido").isMongoId(),
     param("id").custom(existePeliculaPorId),
     validarCampos,
@@ -70,6 +74,8 @@ router.put(
 router.delete(
   "/:id",
   [
+    validarJwt,
+    tieneRol("ADMIN_ROL"),
     param("id", "No es un ID válido").isMongoId(),
     param("id").custom(existePeliculaPorId),
     validarCampos,

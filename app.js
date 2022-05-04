@@ -7,5 +7,6 @@ server.listen();
 
 server.middleware();
 
-// Crear validacion de jwt incluir en las rutas necesarias
-// hacer la verificacion de roles
+// Busqueda por parametros de pelculas o series y personajes
+// relacion de genero con peliculas
+// relacion de peliculas con personajes asociados

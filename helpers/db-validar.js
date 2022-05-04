@@ -2,8 +2,9 @@ const personaje = require("../models/personaje");
 const pelicula = require("../models/pelicula");
 const Usuario = require("../models/usuario");
 const Rol = require("../models/rol");
+const Genero = require("../models/genero");
 
-const ExisteNombre = async (nombre = "") => {
+const ExisteNombre = async (id) => {
   // Verificar si el correo existe
   const nombreExiste = await personaje.findOne({ nombre });
   if (nombreExiste) {
@@ -59,6 +60,14 @@ const existeRol = async (rol = "") => {
   }
 };
 
+const existeGenero = async (id) => {
+  const existeGenero = await Genero.findById(id);
+
+  if (!existeGenero) {
+    throw new Error(`el id ${id} no existe `);
+  }
+};
+
 module.exports = {
   ExisteNombre,
   existePersonajePorId,
@@ -67,4 +76,5 @@ module.exports = {
   existeCorreo,
   existeNombreUsuario,
   existeRol,
+  existeGenero,
 };

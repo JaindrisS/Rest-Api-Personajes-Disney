@@ -10,8 +10,20 @@ const generoSchema = Schema({
     unique: true,
   },
   peliculaAsociada: {
-    type: String,
-    required: [true, "El nombre es obligatorio"],
+    type: Schema.Types.ObjectId,
+    ref: "pelicula",
+    // required: true,
+  },
+
+  estado: {
+    type: Boolean,
+    default: true,
   },
 });
-module.exports = model("genero", generoSchema);
+
+generoSchema.methods.toJSON = function () {
+  const { __v, ...genero } = this.toObject();
+  return genero;
+};
+
+module.exports = model("Genero", generoSchema);

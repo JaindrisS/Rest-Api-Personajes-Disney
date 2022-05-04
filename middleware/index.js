@@ -1,4 +1,4 @@
 const validarCampos = require("../middleware/validarCampos");
 const validarJwt = require("../middleware/validarJWT");
-
-module.exports = { ...validarCampos, ...validarJwt };
+const tieneRol = require("../middleware/validarRoles");
+module.exports = { ...validarCampos, ...validarJwt, ...tieneRol };

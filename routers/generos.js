@@ -1,31 +1,62 @@
 const { Router } = require("express");
-const {} = require("../controllers/personajes");
+const { body, param } = require("express-validator");
+const {
+  crearGenero,
+  actualizarGenero,
+  borrarGenero,
+} = require("../controllers/generos");
+const { existeGenero } = require("../helpers/db-validar");
+const { validarJwt, validarCampos, tieneRol } = require("../middleware");
 
 const router = Router();
 
-//obtener todas las categorias
+//obtenergeneros
 router.get("/", (req, res) => {
   res.json("Get");
 });
 
-//obtener una categoria
+//obtener un genero
 router.get("/:id", (req, res) => {
   res.json("Get-id");
 });
 
-// Crear una categoria
-router.post("/", (req, res) => {
-  res.json("Post");
-});
+// Crear un genero
+router.post(
+  "/",
+  [
+    validarJwt,
+    body("nombre", "El nombre es obligatorio").notEmpty(),
+    validarCampos,
+  ],
+  crearGenero
+);
 
-// Actualizar un registro
-router.put("/:id", (req, res) => {
-  res.json("put");
-});
+// Actualizar un genero
+router.put(
+  "/:id",
+  [
+    validarJwt,
+    tieneRol("ADMIN_ROL"),
+    param("id", "no es un id valido o no existe")
+      .isMongoId()
+      .custom(existeGenero),
+    validarCampos,
+  ],
+  actualizarGenero
+);
 
-// Borrar una categoria
-router.delete("/", (req, res) => {
-  res.json("Hola");
-});
+// Borrar una genero
+router.delete(
+  "/:id",
+  [
+    validarJwt,
+    tieneRol("ADMIN_ROL"),
+    param("id", "no es un id valido o no existe")
+      .isMongoId()
+      .custom(existeGenero),
+    validarCampos,
+  ],
+  borrarGenero
+);
 
 module.exports = router;

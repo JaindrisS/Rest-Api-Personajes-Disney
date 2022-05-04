@@ -14,20 +14,20 @@ const personajeSchema = Schema({
     type: String,
     required: [true, "la historia es obligatoria"],
   },
-  PeliculaOserie: {
-    type: String,
-    required: [true, "el nombre de la pelicula es obligatorio"],
+  peliculaoserie: {
+    type: Schema.Types.ObjectId,
+    ref: "pelicula",
+    require: [true, "La pelicula asociada o serie es obligatoria"],
   },
 
   estado: {
     type: Boolean,
     default: true,
-    required: [true, "el estado es obligatorio"],
   },
 });
 
 personajeSchema.methods.toJSON = function () {
-  const { __v, ...personaje } = this.toObject();
+  const { __v, estado, ...personaje } = this.toObject();
   return personaje;
 };
 

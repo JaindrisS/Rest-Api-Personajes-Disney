@@ -1,22 +1,30 @@
 const { response, request } = require("express");
 const Pelicula = require("../models/pelicula");
 
-const obtenerPelicula = async (req = request, res = response) => {
-  const pelicula = await Pelicula.find({ estado: true });
+const obtenerPeliculas = async (req = request, res = response) => {
+  const pelicula = await Pelicula.find(
+    { estado: true },
+    { titulo: 1, imagen: 1, fechaDeCreacion: 1 }
+  );
 
   res.status(201).json({ pelicula });
 };
 
 const crearPelicula = async (req = request, res = response) => {
-  const { imagen, titulo, fechaDeCreacion, calificacion, PersonajesAsociados } =
-    req.body;
+  const { estado, ...body } = req.body;
+  const titulo = body.titulo.toUpperCase();
+
+  const peliculasDB = await Pelicula.find({ titulo });
+
+  if (peliculasDB) {
+    return res.status(400).json({
+      msg: `La pelicula ${titulo} ya existe`,
+    });
+  }
 
   const peliculas = await new Pelicula({
-    imagen,
+    body,
     titulo,
-    fechaDeCreacion,
-    calificacion,
-    PersonajesAsociados,
   });
 
   await peliculas.save();
@@ -28,10 +36,18 @@ const crearPelicula = async (req = request, res = response) => {
 
 const actualizarPelicula = async (req = request, res = response) => {
   const { id } = req.params;
-  const { _id, ...resto } = req.body;
-  const peliculas = await Pelicula.findByIdAndUpdate(id, resto);
+  const { _id, estado, ...resto } = req.body;
 
-  res.json(peliculas);
+  const datos = {
+    ...resto,
+    titulo: req.body.titulo.toUpperCase(),
+  };
+
+  const peliculas = await Pelicula.findByIdAndUpdate(id, datos);
+
+  res.json({
+    peliculas,
+  });
 };
 
 const borrarPelicula = async (req = request, res = response) => {
@@ -45,7 +61,7 @@ const borrarPelicula = async (req = request, res = response) => {
 };
 
 module.exports = {
-  obtenerPelicula,
+  obtenerPeliculas,
   crearPelicula,
   actualizarPelicula,
   borrarPelicula,
