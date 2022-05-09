@@ -2,6 +2,7 @@ const { response, request } = require("express");
 const bcryptjs = require("bcryptjs");
 const Usuarios = require("../models/usuario");
 const { generarJWT } = require("../helpers/generarJWT");
+const { sendMail } = require("../helpers/emailer");
 
 // Obtener usuarios guardados es la base de dats
 const obtenerUsuarios = async (req = request, res = response) => {
@@ -12,9 +13,15 @@ const obtenerUsuarios = async (req = request, res = response) => {
 
 // registrar el usuario
 const registrarUsuarios = async (req, res = response) => {
-  const { nombre, correo, password, rol } = req.body;
+  const { _id, estado, google, rol, password, ...resto } = req.body;
 
-  const usuario = await new Usuarios({ nombre, correo, password, rol });
+  const datos = {
+    ...resto,
+    password,
+  };
+
+  const usuario = await new Usuarios(datos);
+  sendMail(usuario);
 
   //Encriptar password
   const salt = bcryptjs.genSaltSync(10);

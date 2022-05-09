@@ -39,8 +39,17 @@ const crearPersonaje = async (req = request, res = response) => {
 
 const actualizarPersonaje = async (req = request, res = response) => {
   const { id } = req.params;
-  const { _id, estado, ...resto } = req.body;
-  const personaje = await Personaje.findByIdAndUpdate(id, resto);
+  const { _id, estado, ...body } = req.body;
+
+  if (body.nombre) {
+    body.nombre = body.nombre.toUpperCase();
+  }
+
+  const datos = {
+    ...body,
+  };
+
+  const personaje = await Personaje.findByIdAndUpdate(id, datos);
 
   res.json(personaje);
 };
@@ -52,7 +61,7 @@ const borrarPersonaje = async (req = request, res = response) => {
     new: true,
   });
 
-  res.json(personaje);
+  res.json({ msg: "Personaje Borrado ", personaje });
 };
 
 module.exports = {

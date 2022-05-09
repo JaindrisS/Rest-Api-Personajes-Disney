@@ -50,7 +50,8 @@ router.put(
         .custom(existePersonajePorId),
       body("peliculaoserie", "El id de la pelicula no es valido")
         .isMongoId()
-        .custom(existePeliculaPorId),
+        .custom(existePeliculaPorId)
+        .optional(),
       validarCampos,
     ],
   ],

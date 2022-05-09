@@ -7,17 +7,15 @@ const {
   crearPelicula,
   actualizarPelicula,
   borrarPelicula,
+  detallesPeliculas,
 } = require("../controllers/peliculas");
 
 const router = Router();
 
+router.get("/detallesPeliculas", detallesPeliculas);
+
 //obtener todas las peliculas
 router.get("/", obtenerPeliculas);
-
-//obtener una pelicula
-router.get("/:id", (req, res) => {
-  res.json("Get-id");
-});
 
 // Crear una pelicula
 router.post(
@@ -27,12 +25,10 @@ router.post(
       validarJwt,
       tieneRol("ADMIN_ROL", "USER_ROL"),
       body("titulo", "El titulo es obligatorio").not().isEmpty(),
-      body("fechaDeCreacion", "la fecha es olbligatoria es obligatoria")
-        .not()
-        .isEmpty(),
+      body("fechadecreacion", "la fecha es olbligatoria ").not().isEmpty(),
       body(
-        "fechaDeCreacion",
-        "la fecha es tiene que ser una fecha valida"
+        "fechadecreacion",
+        "la fecha  tiene que ser una fecha valida Ejemplo: 2021/12/05"
       ).isDate(),
       body("calificacion", "La Calificacion es obligatoria").not().isEmpty(),
       body(
@@ -42,14 +38,6 @@ router.post(
         min: 1,
         max: 5,
       }),
-      body("PersonajesAsociados", "Personajes Asociados es obligatorio")
-        .not()
-        .isEmpty(),
-      body(
-        "PersonajesAsociados",
-        "Personajes Asociados tiene que tener los elementos en un array"
-      ).isArray({ min: 1 }),
-
       // body("titulo").custom(ExisteTitulo),
       validarCampos,
     ],
@@ -65,6 +53,22 @@ router.put(
     tieneRol("ADMIN_ROL", "USER_ROL"),
     param("id", "No es un ID válido").isMongoId(),
     param("id").custom(existePeliculaPorId),
+    body(
+      "fechadecreacion",
+      "la fecha  tiene que ser una fecha valida Ejemplo: 2021/12/05"
+    )
+      .isDate()
+      .optional(),
+    body(
+      "calificacion",
+      "La Calificacion tiene que ser un numero entero entre 1 y 5 "
+    )
+      .isInt({
+        min: 1,
+        max: 5,
+      })
+      .optional(),
+
     validarCampos,
   ],
   actualizarPelicula

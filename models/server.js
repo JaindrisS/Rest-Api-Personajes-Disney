@@ -7,10 +7,11 @@ class Server {
     this.app = express();
     this.port = process.env.PORT || 8081;
     this.Paths = {
-      personajes: "/personajes",
-      peliculas: "/peliculas",
-      usuarios: "/auth",
-      generos: "/generos",
+      usuarios: "/api/auth",
+      buscar: "/api/buscar",
+      personajes: "/api/personajes",
+      peliculas: "/api/peliculas",
+      generos: "/api/generos",
     };
     //Conectar base datos
     this.ConectarDB();
@@ -30,9 +31,10 @@ class Server {
     this.app.use(express.json());
   }
   routers() {
+    this.app.use(this.Paths.usuarios, require("../routers/auth-usuarios"));
+    this.app.use(this.Paths.buscar, require("../routers/buscar"));
     this.app.use(this.Paths.personajes, require("../routers/personajes"));
     this.app.use(this.Paths.peliculas, require("../routers/peliculas"));
-    this.app.use(this.Paths.usuarios, require("../routers/auth-usuarios"));
     this.app.use(this.Paths.generos, require("../routers/generos"));
   }
 

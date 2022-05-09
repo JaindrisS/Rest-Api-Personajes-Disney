@@ -1,8 +1,11 @@
+const { ObjectId } = require("mongodb");
+const { default: mongoose } = require("mongoose");
 const { Schema, model } = require("mongoose");
 
 const peliculaSchema = Schema({
-  img: {
+  imagen: {
     type: String,
+    default: null,
   },
   titulo: {
     type: String,
@@ -10,7 +13,7 @@ const peliculaSchema = Schema({
     unique: true,
   },
 
-  fechaDeCreacion: {
+  fechadecreacion: {
     type: String,
     required: [true, "la la fecha es obligatoria"],
   },
@@ -21,8 +24,7 @@ const peliculaSchema = Schema({
   },
 
   PersonajesAsociados: {
-    type: [],
-    required: [true, "la los personajes asociados son  obligatorios"],
+    type: mongoose.Types.ObjectId,
   },
 
   estado: {
