@@ -13,11 +13,11 @@ const obtenerPeliculas = async (req = request, res = response) => {
 };
 
 const crearPelicula = async (req = request, res = response) => {
-  const { estado, ...body } = req.body;
-  const titulo = body.titulo.toUpperCase();
-  // validar que un string que contengaun numero
-  const peliculasDB = await Pelicula.findOne({ titulo });
+  const { estado, titulo, ...body } = req.body;
 
+  const peliculasDB = await Pelicula.findOne({
+    titulo: { $regex: titulo, $options: "i" },
+  });
   if (peliculasDB) {
     return res.status(400).json({
       msg: `La pelicula ${peliculasDB.titulo} ya existe`,
@@ -25,6 +25,7 @@ const crearPelicula = async (req = request, res = response) => {
   }
   const datos = {
     ...body,
+    titulo: titulo.toUpperCase(),
   };
 
   const peliculas = await new Pelicula(datos);

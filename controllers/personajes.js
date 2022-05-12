@@ -11,10 +11,11 @@ const listadoDePersonajes = async (req = request, res = response) => {
 };
 
 const crearPersonaje = async (req = request, res = response) => {
-  const { estado, ...body } = req.body;
-  const nombre = body.nombre.toUpperCase();
+  const { estado, nombre, ...body } = req.body;
 
-  const personajeDB = await Personaje.findOne({ nombre });
+  const personajeDB = await Personaje.findOne({
+    nombre: { $regex: nombre, $options: "i" },
+  });
 
   if (personajeDB) {
     return res.status(400).json({
@@ -24,7 +25,7 @@ const crearPersonaje = async (req = request, res = response) => {
 
   const datos = {
     ...body,
-    nombre,
+    nombre: nombre.toUpperCase(),
   };
 
   const personaje = await new Personaje(datos);

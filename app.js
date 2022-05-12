@@ -5,8 +5,10 @@ const server = new Server();
 server.listen();
 
 server.middleware();
+
+
+
 // Revision de codigo mejoramiento ||  validar que un string que contengaun numero Crear peliculas controllers
-// Debugear
-// Tests Mocha + Chai.
 //Documentacion con Postman
 // Relacion de genero con peliculas
+

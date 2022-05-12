@@ -10,7 +10,7 @@ const peliculaSchema = Schema({
   titulo: {
     type: String,
     required: [true, "El tituloes obligatorio"],
-    unique: true,
+    // unique: true,
   },
 
   fechadecreacion: {
