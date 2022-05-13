@@ -2,6 +2,27 @@ const { response, request } = require("express");
 
 const Genero = require("../models/genero");
 
+const obtenerGenero = async (req = request, res = response) => {
+  const genero = await Genero.aggregate([
+    {
+      $lookup: {
+        from: "peliculas", //2
+        localField: "_id", //referencia al id de pelicula, 1 (pelicula)
+        foreignField: "genero", //id coincida con el campo de personaje 2
+        as: "peliculaasociada",
+      },
+    },
+    {
+      $project: {
+        nombre: 1,
+        peliculaasociada: { titulo: 1, imagen: 1 },
+      },
+    },
+  ]);
+
+  res.json(genero);
+};
+
 const crearGenero = async (req = request, res = response) => {
   const { ...body } = req.body;
 
@@ -59,4 +80,4 @@ const borrarGenero = async (req = request, res = response) => {
   });
 };
 
-module.exports = { crearGenero, actualizarGenero, borrarGenero };
+module.exports = { crearGenero, actualizarGenero, borrarGenero, obtenerGenero };

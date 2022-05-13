@@ -38,6 +38,11 @@ router.post(
         min: 1,
         max: 5,
       }),
+
+      body("genero", "genero obligatorio  y necesita un mongoID valido")
+        .notEmpty()
+        .isMongoId(),
+
       // body("titulo").custom(ExisteTitulo),
       validarCampos,
     ],
@@ -58,7 +63,8 @@ router.put(
       "la fecha  tiene que ser una fecha valida Ejemplo: 2021/12/05"
     )
       .isDate()
-      .optional(),
+      .optional()
+      .notEmpty(),
     body(
       "calificacion",
       "La Calificacion tiene que ser un numero entero entre 1 y 5 "
@@ -67,7 +73,10 @@ router.put(
         min: 1,
         max: 5,
       })
+      .notEmpty()
       .optional(),
+    body("titulo", "No puede estar vacio").notEmpty().optional(),
+    body("genero", "MongoID ID no valido").isMongoId().optional(),
 
     validarCampos,
   ],

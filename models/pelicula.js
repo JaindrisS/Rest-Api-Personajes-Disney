@@ -27,6 +27,11 @@ const peliculaSchema = Schema({
     type: mongoose.Types.ObjectId,
   },
 
+  genero: {
+    type: Schema.Types.ObjectId,
+    ref: "Genero",
+  },
+
   estado: {
     type: Boolean,
     default: true,

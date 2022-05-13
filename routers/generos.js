@@ -4,6 +4,7 @@ const {
   crearGenero,
   actualizarGenero,
   borrarGenero,
+  obtenerGenero,
 } = require("../controllers/generos");
 const { existeGenero } = require("../helpers/db-validar");
 const { validarJwt, validarCampos, tieneRol } = require("../middleware");
@@ -11,14 +12,7 @@ const { validarJwt, validarCampos, tieneRol } = require("../middleware");
 const router = Router();
 
 //obtenergeneros
-router.get("/", (req, res) => {
-  res.json("Get");
-});
-
-//obtener un genero
-router.get("/:id", (req, res) => {
-  res.json("Get-id");
-});
+router.get("/", obtenerGenero);
 
 // Crear un genero
 router.post(

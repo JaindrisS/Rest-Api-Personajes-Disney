@@ -14,10 +14,11 @@ const router = Router();
 router.post(
   "/acceso",
   [
-    body("correo", "El correo es obligatorio").isEmail(),
+    body("correo", "El correo es obligatorio").isEmail().notEmpty(),
     body("password", "El password es obligatorio, minimo 6 numeros")
       .notEmpty()
       .isLength({ min: 6 }),
+    validarCampos,
   ],
   acceso
 );

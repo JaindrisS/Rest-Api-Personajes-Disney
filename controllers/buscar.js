@@ -36,7 +36,10 @@ const buscarPeliculas = async (termino = "", res = response, req = request) => {
   const esMongoId = ObjectId.isValid(termino);
 
   if (esMongoId) {
-    const pelicula = await Pelicula.findById(termino);
+    const pelicula = await Pelicula.findById(termino).populate(
+      "genero",
+      "nombre"
+    );
     return res.json({
       Results:
         pelicula && pelicula.estado

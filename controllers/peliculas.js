@@ -1,6 +1,4 @@
 const { response, request } = require("express");
-const { body } = require("express-validator");
-const query = require("express/lib/middleware/query");
 const Pelicula = require("../models/pelicula");
 
 const obtenerPeliculas = async (req = request, res = response) => {
@@ -84,7 +82,6 @@ const detallesPeliculas = async (req = request, res = response) => {
         fechaDeCreacion: 0,
       },
     },
-    { $unionWith: "personajesAsociados" },
   ]);
 
   return res.json(resultado);

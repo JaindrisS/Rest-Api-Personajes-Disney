@@ -8,7 +8,5 @@ server.middleware();
 
 
 
-// Revision de codigo mejoramiento ||  validar que un string que contengaun numero Crear peliculas controllers
-//Documentacion con Postman
 // Relacion de genero con peliculas
 

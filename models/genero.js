@@ -9,7 +9,7 @@ const generoSchema = Schema({
     required: [true, "El nombre es obligatorio"],
     unique: true,
   },
-  peliculaAsociada: {
+  peliculaasociada: {
     type: Schema.Types.ObjectId,
     ref: "pelicula",
     // required: true,

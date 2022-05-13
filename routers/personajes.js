@@ -52,6 +52,9 @@ router.put(
         .isMongoId()
         .custom(existePeliculaPorId)
         .optional(),
+      body("nombre", "El nombre no puede estar vacio").not().isEmpty(),
+      body("historia", "La historia no puede estar vacia").not().isEmpty(),
+
       validarCampos,
     ],
   ],
