@@ -7,8 +7,8 @@ const obtenerGenero = async (req = request, res = response) => {
     {
       $lookup: {
         from: "peliculas", //2
-        localField: "_id", //referencia al id de pelicula, 1 (pelicula)
-        foreignField: "genero", //id coincida con el campo de personaje 2
+        localField: "_id", //referencia al id gel genero, 1 (pelicula)
+        foreignField: "genero", //id coincida con el campo de pelicula 2
         as: "peliculaasociada",
       },
     },
@@ -55,14 +55,14 @@ const actualizarGenero = async (req = request, res = response) => {
   const { ...body } = req.body;
   const datos = {
     ...body,
-    nombre: req.body.nombre.toUpperCase(),
+    nombre: body.nombre.toUpperCase(),
   };
 
-  const generoDB = await Genero.findByIdAndUpdate(id, datos);
+  const genero = await Genero.findByIdAndUpdate(id, datos);
 
   res.json({
     msg: "Genero actualizado",
-    generoDB,
+    genero,
   });
 };
 

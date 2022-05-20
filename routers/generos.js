@@ -34,6 +34,9 @@ router.put(
     param("id", "no es un id valido o no existe")
       .isMongoId()
       .custom(existeGenero),
+    body("nombre", "debe pasar un nombre no puede estar vacio")
+      .notEmpty()
+      .optional(),
     validarCampos,
   ],
   actualizarGenero
