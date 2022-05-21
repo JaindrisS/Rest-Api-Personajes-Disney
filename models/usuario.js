@@ -34,6 +34,14 @@ const usuarioSchema = Schema({
     type: Boolean,
     default: false,
   },
+
+  createAt: {
+    type: String,
+  },
+
+  upDate: {
+    type: String,
+  },
 });
 
 usuarioSchema.methods.toJSON = function () {

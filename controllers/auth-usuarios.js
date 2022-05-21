@@ -27,12 +27,34 @@ const registrarUsuarios = async (req, res = response) => {
   const salt = bcryptjs.genSaltSync(10);
   usuario.password = bcryptjs.hashSync(password, salt);
 
+  let date = new Date();
+  resultado = date.toLocaleString();
+  usuario.createAt = resultado;
   // guardar en db
   await usuario.save();
 
   res.status(201).json({ usuario });
 };
 
+const actualizarUsuarios = async (req, res = response) => {
+  const { id } = req.params;
+
+  //Extraemos las propiedades q no queremos mostrar y devolvemos el resto
+  const { _id, google, password, ...resto } = req.body;
+
+  let dateUp = new Date();
+  resultado = dateUp.toLocaleString();
+  resto.upDate = resultado;
+  //busca la informacion en el body por el id y actualiza
+  const usuario = await Usuarios.findByIdAndUpdate(id, resto, {
+    new: true,
+  });
+
+  res.json({
+    msg: `La informacion se actualizo con exito`,
+    usuario,
+  });
+};
 // acesso de usuarios
 
 const acceso = async (req, res = response) => {
@@ -80,4 +102,9 @@ const acceso = async (req, res = response) => {
   }
 };
 
-module.exports = { registrarUsuarios, obtenerUsuarios, acceso };
+module.exports = {
+  registrarUsuarios,
+  obtenerUsuarios,
+  acceso,
+  actualizarUsuarios,
+};
