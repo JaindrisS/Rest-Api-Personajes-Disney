@@ -40,7 +40,7 @@ const actualizarUsuarios = async (req, res = response) => {
   const { id } = req.params;
 
   //Extraemos las propiedades q no queremos mostrar y devolvemos el resto
-  const { _id, google, password, ...resto } = req.body;
+  const { _id, google, password, rol, ...resto } = req.body;
 
   let dateUp = new Date();
   let resultado = dateUp.toLocaleString();

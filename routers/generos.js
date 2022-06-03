@@ -6,7 +6,10 @@ const {
   borrarGenero,
   obtenerGenero,
 } = require("../controllers/generos");
-const { existeGenero } = require("../helpers/db-validar");
+const {
+  ExisteNombreGenero,
+  existeGeneroPorId,
+} = require("../helpers/db-validar");
 const { validarJwt, validarCampos, tieneRol } = require("../middleware");
 
 const router = Router();
@@ -20,6 +23,8 @@ router.post(
   [
     validarJwt,
     body("nombre", "El nombre es obligatorio").notEmpty(),
+    body("nombre").custom(ExisteNombreGenero),
+
     validarCampos,
   ],
   crearGenero
@@ -33,10 +38,11 @@ router.put(
     tieneRol("ADMIN_ROL"),
     param("id", "no es un id valido o no existe")
       .isMongoId()
-      .custom(existeGenero),
+      .custom(existeGeneroPorId),
     body("nombre", "debe pasar un nombre no puede estar vacio")
       .notEmpty()
       .optional(),
+    body("nombre").custom(ExisteNombreGenero).optional(),
     validarCampos,
   ],
   actualizarGenero
@@ -50,7 +56,7 @@ router.delete(
     tieneRol("ADMIN_ROL"),
     param("id", "no es un id valido o no existe")
       .isMongoId()
-      .custom(existeGenero),
+      .custom(existeGeneroPorId),
     validarCampos,
   ],
   borrarGenero

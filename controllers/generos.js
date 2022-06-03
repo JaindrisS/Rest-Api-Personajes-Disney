@@ -28,13 +28,7 @@ const crearGenero = async (req = request, res = response) => {
 
   const nombre = body.nombre.toUpperCase();
 
-  const generoDB = await Genero.findOne({ nombre });
-
-  if (generoDB) {
-    return res.status(400).json({
-      msg: `El genero ${nombre} ya existe`,
-    });
-  }
+  
 
   const datos = {
     ...body,

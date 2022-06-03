@@ -20,14 +20,18 @@ const existePersonajePorId = async (id) => {
 };
 
 const existeNombreUsuario = async (nombre = "") => {
-  const nombreExiste = await Usuario.findOne({ nombre });
+  const nombreExiste = await Usuario.findOne({
+    nombre: { $regex: nombre, $options: "i" },
+  });
 
   if (nombreExiste) {
     throw new Error(`El nombre de usuario ${nombre} ya esta registrado`);
   }
 };
 const existeCorreo = async (correo = "") => {
-  const correoExiste = await Usuario.findOne({ correo });
+  const correoExiste = await Usuario.findOne({
+    correo: { $regex: correo, $options: "i" },
+  });
 
   if (correoExiste) {
     throw Error(`El correo ${correo} ya se encuentra registrado`);
@@ -45,7 +49,6 @@ const ExisteTituloPelicula = async (titulo = "") => {
   }
 };
 const existePeliculaPorId = async (id) => {
-  
   const existePelicula = await Pelicula.findById(id);
   if (!existePelicula) {
     throw new Error(`El id no existe ${id}`);
@@ -60,11 +63,21 @@ const existeRol = async (rol = "") => {
   }
 };
 
-const existeGenero = async (id) => {
-  const existeGenero = await Genero.findById(id);
+const existeGeneroPorId = async (id) => {
+  const existeGeneroPorId = await Genero.findById(id);
 
-  if (!existeGenero) {
+  if (!existeGeneroPorId) {
     throw new Error(`el id ${id} no existe `);
+  }
+};
+
+const ExisteNombreGenero = async (nombre = "") => {
+  const generosDB = await Genero.findOne({
+    nombre: { $regex: nombre, $options: "i" },
+  });
+
+  if (generosDB) {
+    throw new Error(`El nombre del genero ${generosDB.nombre} ya existe`);
   }
 };
 
@@ -76,5 +89,6 @@ module.exports = {
   existeCorreo,
   existeNombreUsuario,
   existeRol,
-  existeGenero,
+  existeGeneroPorId,
+  ExisteNombreGenero,
 };

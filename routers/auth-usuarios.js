@@ -47,6 +47,8 @@ router.put(
   [
     validarJwt,
     body("nombre", "Debe ingresar algun nombre").notEmpty().optional(),
+    body("nombre").custom(existeNombreUsuario).optional(),
+    body("correo").custom(existeCorreo).optional(),
     body("password", "El password debe tener minimo 6 numeros")
       .isLength({
         min: 6,
