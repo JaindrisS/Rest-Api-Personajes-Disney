@@ -9,6 +9,7 @@ class Server {
     this.Paths = {
       usuarios: "/api/auth",
       buscar: "/api/buscar",
+      cargar: "/api/cargas",
       personajes: "/api/personajes",
       peliculas: "/api/peliculas",
       generos: "/api/generos",
@@ -36,6 +37,7 @@ class Server {
     this.app.use(this.Paths.personajes, require("../routers/personajes"));
     this.app.use(this.Paths.peliculas, require("../routers/peliculas"));
     this.app.use(this.Paths.generos, require("../routers/generos"));
+    this.app.use(this.Paths.cargar, require("../routers/cargas"));
   }
 
   listen() {

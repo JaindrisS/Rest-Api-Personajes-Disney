@@ -1,14 +1,21 @@
-const personaje = require("../models/personaje");
-const pelicula = require("../models/pelicula");
-const Usuario = require("../models/usuario");
+const { Pelicula, Usuario, Personaje, Genero } = require("../models/index");
 const Rol = require("../models/rol");
-const Genero = require("../models/genero");
 
-const ExisteNombre = async (id) => {
+const ExisteNombrePersonaje = async (nombre) => {
+  // Verificar si el personaje existe
+  const personajeDB = await Personaje.findOne({
+    nombre: { $regex: nombre, $options: "i" },
+  });
+
+  if (personajeDB) {
+    throw new Error(`el personaje ${personajeDB.nombre} ya existe`);
+  }
+};
+const existePersonajePorId = async (id) => {
   // Verificar si el correo existe
-  const nombreExiste = await personaje.findOne({ nombre });
-  if (nombreExiste) {
-    throw new Error(`El nombre del personaje: ${nombre}, ya está registrado`);
+  const existePersonaje = await Personaje.findById(id);
+  if (!existePersonaje) {
+    throw new Error(`El id no existe ${id}`);
   }
 };
 
@@ -19,36 +26,29 @@ const existeNombreUsuario = async (nombre = "") => {
     throw new Error(`El nombre de usuario ${nombre} ya esta registrado`);
   }
 };
-
-const ExisteTitulo = async (titulo = "") => {
-  // Verificar si el correo existe
-  const tituloExiste = await pelicula.findOne({ titulo });
-  if (tituloExiste) {
-    throw new Error(`El titulo de la pelicula: ${titulo}, ya está registrado`);
-  }
-};
-
-const existePersonajePorId = async (id) => {
-  // Verificar si el correo existe
-  const existePersonaje = await personaje.findById(id);
-  if (!existePersonaje) {
-    throw new Error(`El id no existe ${id}`);
-  }
-};
-
-const existePeliculaPorId = async (id) => {
-  // Verificar si el correo existe
-  const existePelicula = await pelicula.findById(id);
-  if (!existePelicula) {
-    throw new Error(`El id no existe ${id}`);
-  }
-};
-
 const existeCorreo = async (correo = "") => {
   const correoExiste = await Usuario.findOne({ correo });
 
   if (correoExiste) {
     throw Error(`El correo ${correo} ya se encuentra registrado`);
+  }
+};
+
+const ExisteTituloPelicula = async (titulo = "") => {
+  // Verificar si la pelicula  existe
+
+  const peliculasDB = await Pelicula.findOne({
+    titulo: { $regex: titulo, $options: "i" },
+  });
+  if (peliculasDB) {
+    throw new Error(`La pelicula ${peliculasDB.titulo} ya existe`);
+  }
+};
+const existePeliculaPorId = async (id) => {
+  
+  const existePelicula = await Pelicula.findById(id);
+  if (!existePelicula) {
+    throw new Error(`El id no existe ${id}`);
   }
 };
 
@@ -69,9 +69,9 @@ const existeGenero = async (id) => {
 };
 
 module.exports = {
-  ExisteNombre,
+  ExisteNombrePersonaje,
   existePersonajePorId,
-  ExisteTitulo,
+  ExisteTituloPelicula,
   existePeliculaPorId,
   existeCorreo,
   existeNombreUsuario,

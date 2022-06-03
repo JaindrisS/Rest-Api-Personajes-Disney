@@ -24,6 +24,7 @@ router.post(
     [
       validarJwt,
       tieneRol("ADMIN_ROL", "USER_ROL"),
+      body("titulo").custom(ExisteTitulo).optional(),
       body("titulo", "El titulo es obligatorio").not().isEmpty(),
       body("fechadecreacion", "la fecha es olbligatoria ").not().isEmpty(),
       body(
@@ -43,7 +44,9 @@ router.post(
         .notEmpty()
         .isMongoId(),
 
-      // body("titulo").custom(ExisteTitulo),
+      // body("titulo", "El titulo de la pelicula ya esta registrado").custom(
+      //   ExisteTitulo()
+      // ),
       validarCampos,
     ],
   ],
@@ -77,7 +80,7 @@ router.put(
       .optional(),
     body("titulo", "No puede estar vacio").notEmpty().optional(),
     body("genero", "MongoID ID no valido").isMongoId().optional(),
-
+    body("titulo").custom(ExisteTitulo).optional(),
     validarCampos,
   ],
   actualizarPelicula

@@ -43,7 +43,7 @@ const actualizarUsuarios = async (req, res = response) => {
   const { _id, google, password, ...resto } = req.body;
 
   let dateUp = new Date();
-  resultado = dateUp.toLocaleString();
+  let resultado = dateUp.toLocaleString();
   resto.upDate = resultado;
   //busca la informacion en el body por el id y actualiza
   const usuario = await Usuarios.findByIdAndUpdate(id, resto, {

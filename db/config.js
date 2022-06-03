@@ -7,11 +7,6 @@ const dbConeccion = async () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        // useFindAndModify: false,
-        // useCreateIndex: true,
-        // useUnifiedTopology: true,
-        // useCreateIndex: true,
-        // useFindAndModify: false,
       };
     console.log("Base de datos en lineas");
   } catch (error) {

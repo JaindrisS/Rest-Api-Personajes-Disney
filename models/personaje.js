@@ -24,6 +24,13 @@ const personajeSchema = Schema({
     type: Boolean,
     default: true,
   },
+  createAt: {
+    type: String,
+  },
+
+  upDate: {
+    type: String,
+  },
 });
 
 personajeSchema.methods.toJSON = function () {

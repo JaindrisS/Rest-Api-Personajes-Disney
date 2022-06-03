@@ -1,4 +1,3 @@
-const { ObjectId } = require("mongodb");
 const { default: mongoose } = require("mongoose");
 const { Schema, model } = require("mongoose");
 
@@ -36,6 +35,12 @@ const peliculaSchema = Schema({
     type: Boolean,
     default: true,
     required: [true, "el estado es obligatorio"],
+  },
+
+  
+
+  upDate: {
+    type: String,
   },
 });
 

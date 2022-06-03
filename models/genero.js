@@ -19,6 +19,14 @@ const generoSchema = Schema({
     type: Boolean,
     default: true,
   },
+
+  createAt: {
+    type: String,
+  },
+
+  upDate: {
+    type: String,
+  },
 });
 
 generoSchema.methods.toJSON = function () {

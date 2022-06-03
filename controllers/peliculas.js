@@ -13,14 +13,6 @@ const obtenerPeliculas = async (req = request, res = response) => {
 const crearPelicula = async (req = request, res = response) => {
   const { estado, titulo, ...body } = req.body;
 
-  const peliculasDB = await Pelicula.findOne({
-    titulo: { $regex: titulo, $options: "i" },
-  });
-  if (peliculasDB) {
-    return res.status(400).json({
-      msg: `La pelicula ${peliculasDB.titulo} ya existe`,
-    });
-  }
   const datos = {
     ...body,
     titulo: titulo.toUpperCase(),
@@ -42,6 +34,10 @@ const actualizarPelicula = async (req = request, res = response) => {
   if (body.titulo) {
     body.titulo = body.titulo.toUpperCase();
   }
+
+  let dateUp = new Date();
+  let resultado = dateUp.toLocaleString();
+  body.upDate = resultado;
 
   const datos = {
     ...body,

@@ -42,7 +42,9 @@ const crearGenero = async (req = request, res = response) => {
   };
 
   const genero = await new Genero(datos);
-
+  let date = new Date();
+  resultado = date.toLocaleString();
+  genero.createAt = resultado;
   await genero.save();
 
   res.json({
