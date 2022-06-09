@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 const { Schema, model } = require("mongoose");
 
 const peliculaSchema = Schema({
-  imagen: {
+  img: {
     type: String,
     default: null,
   },
@@ -36,8 +36,6 @@ const peliculaSchema = Schema({
     default: true,
     required: [true, "el estado es obligatorio"],
   },
-
-  
 
   upDate: {
     type: String,

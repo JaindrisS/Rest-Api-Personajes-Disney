@@ -70,7 +70,6 @@ const existeGeneroPorId = async (id) => {
     throw new Error(`el id ${id} no existe `);
   }
 };
-
 const ExisteNombreGenero = async (nombre = "") => {
   const generosDB = await Genero.findOne({
     nombre: { $regex: nombre, $options: "i" },
@@ -79,6 +78,14 @@ const ExisteNombreGenero = async (nombre = "") => {
   if (generosDB) {
     throw new Error(`El nombre del genero ${generosDB.nombre} ya existe`);
   }
+};
+
+const coleccionesPermitidas = async (coleccion = "", colecciones = []) => {
+  const incluida = colecciones.includes(coleccion);
+  if (!incluida) {
+    throw new Error(`La coleccion ${coleccion} no esta permitida`);
+  }
+  return true;
 };
 
 module.exports = {
@@ -91,4 +98,5 @@ module.exports = {
   existeRol,
   existeGeneroPorId,
   ExisteNombreGenero,
+  coleccionesPermitidas,
 };
