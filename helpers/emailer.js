@@ -17,7 +17,6 @@ const createTrans = () => {
 
 const sendMail = async (user) => {
   let transporter = createTrans(); //Retorna el transporte que vamos a utilizar
-
   let info = await transporter.sendMail({
     from: "jaindrissosajsd@gmail.com", // Desde donde se envia el correo
     to: `${user.correo}`, // Receptor del correo
@@ -37,4 +36,3 @@ const sendMail = async (user) => {
 };
 
 module.exports = { sendMail };
-

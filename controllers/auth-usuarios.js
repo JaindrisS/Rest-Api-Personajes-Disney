@@ -59,7 +59,8 @@ const actualizarUsuarios = async (req, res = response) => {
 
 const acceso = async (req, res = response) => {
   const { correo, password } = req.body;
-
+  const { token } = req.body;
+  console.log(token);
   try {
     // verificando si el correo existe
     const usuario = await Usuarios.findOne({ correo });
