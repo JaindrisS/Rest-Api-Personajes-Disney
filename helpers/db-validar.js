@@ -19,7 +19,7 @@ const existePersonajePorId = async (id) => {
   }
 };
 
-const existeNombreUsuario = async (nombre = "") => {
+const existeNombreUsuario = async (nombre) => {
   const nombreExiste = await Usuario.findOne({
     nombre: { $regex: nombre, $options: "i" },
   });

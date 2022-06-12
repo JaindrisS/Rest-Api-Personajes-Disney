@@ -8,7 +8,7 @@ const buscarPersonaje = async (termino = "", res = response) => {
   const esMongoId = ObjectId.isValid(termino);
 
   if (esMongoId) {
-    const personaje = await Personaje.find(termino);
+    const personaje = await Personaje.findById(termino);
 
     res.json({
       results:
@@ -24,7 +24,7 @@ const buscarPersonaje = async (termino = "", res = response) => {
 
   const personaje = await Personaje.find({
     $and: [{ nombre: regex }, { estado: true }],
-  });
+  }).populate("peliculaoserie", "titulo");
   return res.json({
     results: personaje
       ? personaje
@@ -51,14 +51,14 @@ const buscarPeliculas = async (termino = "", res = response, req = request) => {
   // busqueda por parametros ASC | DES
   if (termino) {
     if (termino === "asc") {
-      const pelicula = await Pelicula.find().sort({ fechaDeCreacion: 1 });
+      const pelicula = await Pelicula.find().sort({ fechadecreacion: 1 });
 
       return res.json({
         Peliculas: pelicula,
       });
     }
     if (termino === "desc") {
-      const pelicula = await Pelicula.find().sort({ fechaDeCreacion: -1 });
+      const pelicula = await Pelicula.find().sort({ fechadecreacion: -1 });
 
       return res.json({
         Peliculas: pelicula,

@@ -1,6 +1,9 @@
 const { Router } = require("express");
 const { body, param } = require("express-validator");
-const { ExisteTitulo, existePeliculaPorId } = require("../helpers/db-validar");
+const {
+  existePeliculaPorId,
+  ExisteTituloPelicula,
+} = require("../helpers/db-validar");
 const { validarCampos, validarJwt, tieneRol } = require("../middleware/index");
 const {
   obtenerPeliculas,
@@ -24,7 +27,7 @@ router.post(
     [
       validarJwt,
       tieneRol("ADMIN_ROL", "USER_ROL"),
-      body("titulo").custom(ExisteTitulo).optional(),
+      body("titulo").custom(ExisteTituloPelicula).optional(),
       body("titulo", "El titulo es obligatorio").not().isEmpty(),
       body("fechadecreacion", "la fecha es olbligatoria ").not().isEmpty(),
       body(
@@ -80,7 +83,7 @@ router.put(
       .optional(),
     body("titulo", "No puede estar vacio").notEmpty().optional(),
     body("genero", "MongoID ID no valido").isMongoId().optional(),
-    body("titulo").custom(ExisteTitulo).optional(),
+    body("titulo").custom(ExisteTituloPelicula).optional(),
     validarCampos,
   ],
   actualizarPelicula
