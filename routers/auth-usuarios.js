@@ -6,7 +6,7 @@ const {
   acceso,
   registrarUsuarios,
   actualizarUsuarios,
-} = require("../userCase/userControllers");
+} = require("../useCases/auth/userControllers");
 
 const router = Router();
 
