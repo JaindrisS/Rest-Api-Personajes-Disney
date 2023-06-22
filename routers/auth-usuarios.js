@@ -4,9 +4,9 @@ const { existeCorreo, existeNombreUsuario } = require("../helpers/db-validar");
 const { validarCampos, validarJwt } = require("../middleware");
 const {
   registrarUsuarios,
-  acceso,
   actualizarUsuarios,
 } = require("../controllers/auth-usuarios");
+const { acceso } = require("../userCase/userControllers");
 
 const router = Router();
 
