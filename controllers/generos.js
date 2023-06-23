@@ -2,26 +2,7 @@ const { response, request } = require("express");
 
 const Genero = require("../models/genero");
 
-const crearGenero = async (req = request, res = response) => {
-  const { ...body } = req.body;
 
-  const nombre = body.nombre.toUpperCase();
-
-  const datos = {
-    ...body,
-    nombre,
-  };
-
-  const genero = await new Genero(datos);
-  let date = new Date();
-  resultado = date.toLocaleString();
-  genero.createAt = resultado;
-  await genero.save();
-
-  res.json({
-    genero,
-  });
-};
 
 const actualizarGenero = async (req = request, res = response) => {
   const { id } = req.params;
@@ -53,4 +34,4 @@ const borrarGenero = async (req = request, res = response) => {
   });
 };
 
-module.exports = { crearGenero, actualizarGenero, borrarGenero, obtenerGenero };
+module.exports = { borrarGenero, crearGenero, actualizarGenero };
