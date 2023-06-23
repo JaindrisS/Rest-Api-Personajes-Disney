@@ -4,13 +4,13 @@ const {
   crearGenero,
   actualizarGenero,
   borrarGenero,
-  obtenerGenero,
 } = require("../controllers/generos");
 const {
   ExisteNombreGenero,
   existeGeneroPorId,
 } = require("../helpers/db-validar");
 const { validarJwt, validarCampos, tieneRol } = require("../middleware");
+const { obtenerGenero } = require("../useCases/genre/genreController");
 
 const router = Router();
 
