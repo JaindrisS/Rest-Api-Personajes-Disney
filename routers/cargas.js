@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { body, param } = require("express-validator");
-const actualizarImagen = require("../controllers/cargas");
+const actualizarImagen = require("../useCases/loads/loadsController");
 const { coleccionesPermitidas } = require("../helpers/db-validar");
 const { validarArchivos, validarCampos } = require("../middleware");
 
