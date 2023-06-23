@@ -1,3 +1,5 @@
+const { response, ObjectId, Personaje } = require("../searchModules");
+
 const buscarPersonaje = async (termino = "", res = response) => {
   // busqueda por id de mongodb
   const esMongoId = ObjectId.isValid(termino);
