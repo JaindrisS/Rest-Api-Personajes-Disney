@@ -1,5 +1,5 @@
-
-const {buscarPersonaje,buscarPeliculas}=require("../searchControllers")
+const { coleccionesPermitidas } = require("../searchModules");
+const { buscarPersonaje, buscarPeliculas } = require("../searchControllers");
 
 const buscar = (req = request, res = response) => {
   const { coleccion, termino } = req.params;
@@ -12,7 +12,7 @@ const buscar = (req = request, res = response) => {
 
   switch (coleccion) {
     case "peliculas":
-   buscarPeliculas(termino, res, req);
+      buscarPeliculas(termino, res, req);
       break;
     case "personajes":
       buscarPersonaje(termino, res);
