@@ -1,6 +1,6 @@
 const { response, request } = require("express");
 
-const Genero = require("../models/genero");
+const Genero = require("../../models/genero");
 
 module.exports = {
   response,
