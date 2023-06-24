@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const { body, param } = require("express-validator");
-const { borrarGenero } = require("../controllers/generos");
 const {
   ExisteNombreGenero,
   existeGeneroPorId,
@@ -10,6 +9,7 @@ const {
   obtenerGenero,
   crearGenero,
   actualizarGenero,
+  borrarGenero,
 } = require("../useCases/genre/genreController");
 
 const router = Router();
