@@ -6,11 +6,11 @@ const {
   ExisteNombrePersonaje,
 } = require("../helpers/db-validar");
 const { validarCampos, validarJwt, tieneRol } = require("../middleware/index");
-const { borrarPersonaje } = require("../controllers/personajes");
 const {
   actualizarPersonaje,
   listadoDePersonajes,
   crearPersonaje,
+  borrarPersonaje,
 } = require("../useCases/characters/characterControllers");
 
 const router = Router();
