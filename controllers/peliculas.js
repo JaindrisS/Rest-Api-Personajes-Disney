@@ -1,23 +1,6 @@
 const { response, request } = require("express");
 const Pelicula = require("../models/pelicula");
 
-const crearPelicula = async (req = request, res = response) => {
-  const { estado, titulo, ...body } = req.body;
-
-  const datos = {
-    ...body,
-    titulo: titulo.toUpperCase(),
-  };
-
-  const peliculas = await new Pelicula(datos);
-
-  await peliculas.save();
-
-  res.json({
-    peliculas,
-  });
-};
-
 const actualizarPelicula = async (req = request, res = response) => {
   const { id } = req.params;
   const { _id, estado, ...body } = req.body;
@@ -75,7 +58,6 @@ const detallesPeliculas = async (req = request, res = response) => {
 };
 
 module.exports = {
-  crearPelicula,
   actualizarPelicula,
   borrarPelicula,
   detallesPeliculas,
