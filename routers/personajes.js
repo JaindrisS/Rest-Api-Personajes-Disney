@@ -6,11 +6,9 @@ const {
   ExisteNombrePersonaje,
 } = require("../helpers/db-validar");
 const { validarCampos, validarJwt, tieneRol } = require("../middleware/index");
+const { borrarPersonaje } = require("../controllers/personajes");
 const {
   actualizarPersonaje,
-  borrarPersonaje,
-} = require("../controllers/personajes");
-const {
   listadoDePersonajes,
   crearPersonaje,
 } = require("../useCases/characters/characterControllers");
