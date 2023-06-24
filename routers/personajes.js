@@ -10,8 +10,10 @@ const {
   crearPersonaje,
   actualizarPersonaje,
   borrarPersonaje,
-  listadoDePersonajes,
 } = require("../controllers/personajes");
+const {
+  listadoDePersonajes,
+} = require("../useCases/characters/characterControllers");
 
 const router = Router();
 
