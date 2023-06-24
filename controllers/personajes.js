@@ -1,15 +1,6 @@
 const { response, request } = require("express");
 const Personaje = require("../models/personaje");
 
-const listadoDePersonajes = async (req = request, res = response) => {
-  const personaje = await Personaje.find(
-    { estado: true },
-    { nombre: 1 }
-  ).populate("peliculaoserie", "titulo");
-
-  res.status(201).json({ personaje });
-};
-
 const crearPersonaje = async (req = request, res = response) => {
   const { estado, nombre, ...body } = req.body;
 
@@ -63,7 +54,6 @@ const borrarPersonaje = async (req = request, res = response) => {
 };
 
 module.exports = {
-  listadoDePersonajes,
   crearPersonaje,
   actualizarPersonaje,
   borrarPersonaje,
