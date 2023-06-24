@@ -1,29 +1,6 @@
 const { response, request } = require("express");
 const Pelicula = require("../models/pelicula");
 
-const actualizarPelicula = async (req = request, res = response) => {
-  const { id } = req.params;
-  const { _id, estado, ...body } = req.body;
-
-  if (body.titulo) {
-    body.titulo = body.titulo.toUpperCase();
-  }
-
-  let dateUp = new Date();
-  let resultado = dateUp.toLocaleString();
-  body.upDate = resultado;
-
-  const datos = {
-    ...body,
-  };
-
-  const peliculas = await Pelicula.findByIdAndUpdate(id, datos);
-
-  res.json({
-    peliculas,
-  });
-};
-
 const borrarPelicula = async (req = request, res = response) => {
   const { id } = req.params;
   const Peliculas = await Pelicula.findByIdAndUpdate(id, {
@@ -58,7 +35,6 @@ const detallesPeliculas = async (req = request, res = response) => {
 };
 
 module.exports = {
-  actualizarPelicula,
   borrarPelicula,
   detallesPeliculas,
 };
