@@ -1,28 +1,6 @@
 const { response, request } = require("express");
 const Personaje = require("../models/personaje");
 
-const crearPersonaje = async (req = request, res = response) => {
-  const { estado, nombre, ...body } = req.body;
-
-  const datos = {
-    ...body,
-    nombre: nombre.toUpperCase(),
-  };
-
-  const personaje = await new Personaje(datos);
-
-  let date = new Date();
-  resultado = date.toLocaleString();
-  personaje.createAt = resultado;
-
-  // Guardar en BD
-  await personaje.save();
-
-  res.json({
-    personaje,
-  });
-};
-
 const actualizarPersonaje = async (req = request, res = response) => {
   const { id } = req.params;
   const { _id, estado, upDate, ...body } = req.body;
@@ -54,7 +32,6 @@ const borrarPersonaje = async (req = request, res = response) => {
 };
 
 module.exports = {
-  crearPersonaje,
   actualizarPersonaje,
   borrarPersonaje,
 };
