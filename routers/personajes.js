@@ -7,12 +7,12 @@ const {
 } = require("../helpers/db-validar");
 const { validarCampos, validarJwt, tieneRol } = require("../middleware/index");
 const {
-  crearPersonaje,
   actualizarPersonaje,
   borrarPersonaje,
 } = require("../controllers/personajes");
 const {
   listadoDePersonajes,
+  crearPersonaje,
 } = require("../useCases/characters/characterControllers");
 
 const router = Router();
