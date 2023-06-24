@@ -6,13 +6,13 @@ const {
 } = require("../helpers/db-validar");
 const { validarCampos, validarJwt, tieneRol } = require("../middleware/index");
 const {
-  actualizarPelicula,
   borrarPelicula,
   detallesPeliculas,
 } = require("../controllers/peliculas");
 const {
   obtenerPeliculas,
   crearPelicula,
+  actualizarPelicula,
 } = require("../useCases/movies/moviesControllers");
 const router = Router();
 
