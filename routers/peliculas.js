@@ -5,12 +5,12 @@ const {
   ExisteTituloPelicula,
 } = require("../helpers/db-validar");
 const { validarCampos, validarJwt, tieneRol } = require("../middleware/index");
-const { detallesPeliculas } = require("../controllers/peliculas");
 const {
   obtenerPeliculas,
   crearPelicula,
   actualizarPelicula,
   borrarPelicula,
+  detallesPeliculas,
 } = require("../useCases/movies/moviesControllers");
 const router = Router();
 
