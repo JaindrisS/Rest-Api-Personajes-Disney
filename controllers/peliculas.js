@@ -1,19 +1,6 @@
 const { response, request } = require("express");
 const Pelicula = require("../models/pelicula");
 
-const borrarPelicula = async (req = request, res = response) => {
-  const { id } = req.params;
-  const Peliculas = await Pelicula.findByIdAndUpdate(id, {
-    estado: false,
-    new: true,
-  });
-
-  res.json({
-    msg: "Pelicula Borrada",
-    Peliculas,
-  });
-};
-
 const detallesPeliculas = async (req = request, res = response) => {
   const resultado = await Pelicula.aggregate([
     {
@@ -35,6 +22,5 @@ const detallesPeliculas = async (req = request, res = response) => {
 };
 
 module.exports = {
-  borrarPelicula,
   detallesPeliculas,
 };
