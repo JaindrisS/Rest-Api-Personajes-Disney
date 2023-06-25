@@ -3,10 +3,10 @@ const { body, param } = require("express-validator");
 const { existeCorreo, existeNombreUsuario } = require("../helpers/db-validar");
 const { validarCampos, validarJwt } = require("../middleware");
 const {
-  registrarUsuarios,
   acceso,
+  registrarUsuarios,
   actualizarUsuarios,
-} = require("../controllers/auth-usuarios");
+} = require("../useCases/auth/userControllers");
 
 const router = Router();
 

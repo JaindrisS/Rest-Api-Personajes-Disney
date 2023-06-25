@@ -7,11 +7,11 @@ const {
 } = require("../helpers/db-validar");
 const { validarCampos, validarJwt, tieneRol } = require("../middleware/index");
 const {
-  crearPersonaje,
   actualizarPersonaje,
-  borrarPersonaje,
   listadoDePersonajes,
-} = require("../controllers/personajes");
+  crearPersonaje,
+  borrarPersonaje,
+} = require("../useCases/characters/characterControllers");
 
 const router = Router();
 

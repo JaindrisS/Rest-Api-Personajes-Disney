@@ -1,16 +1,16 @@
 const { Router } = require("express");
 const { body, param } = require("express-validator");
 const {
-  crearGenero,
-  actualizarGenero,
-  borrarGenero,
-  obtenerGenero,
-} = require("../controllers/generos");
-const {
   ExisteNombreGenero,
   existeGeneroPorId,
 } = require("../helpers/db-validar");
 const { validarJwt, validarCampos, tieneRol } = require("../middleware");
+const {
+  obtenerGenero,
+  crearGenero,
+  actualizarGenero,
+  borrarGenero,
+} = require("../useCases/genre/genreController");
 
 const router = Router();
 

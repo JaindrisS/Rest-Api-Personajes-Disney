@@ -11,8 +11,7 @@ const {
   actualizarPelicula,
   borrarPelicula,
   detallesPeliculas,
-} = require("../controllers/peliculas");
-
+} = require("../useCases/movies/moviesControllers");
 const router = Router();
 
 router.get("/detallesPeliculas", detallesPeliculas);
