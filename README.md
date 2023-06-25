@@ -37,12 +37,12 @@ La base de esta api es: https://restapidisney.herokuapp.com y puedes usarla con 
 
 ### Peliculas
 
-| CRUD   | RESPONSE                    | ROUTE                                                     | SEND   | INFO                                                                                            |
-| ------ | --------------------------- | --------------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------- | --- |
-| GET    | Obtener todas las peliculas | https://restapidisney.herokuapp.com/api/peliculas         |        |                                                                                                 |
+| CRUD   | RESPONSE                    | ROUTE                                                     | SEND   | INFO
+| ------ | --------------------------- | ----------------------------------------------------------| ------ |-----
+| GET    | Obtener todas las peliculas | https://restapidisney.herokuapp.com/api/peliculas         |        |
 | GET    | Detalles de las peliculas   | https://restapidisney.herokuapp.com/api/detallesPeliculas |        |
-| POST   | Crear Pelicula              | https://restapidisney.herokuapp.com/api/peliculas         | body   | titulo, , calificacion: "1" a "5",genero: id del genero,fechadecreacion, (key-token por header) |
-| PUT    | Actualizar Peliculas        | https://restapidisney.herokuapp.com/api/peliculas/id      | params | id de la pelicula params                                                                        |
+| POST   | Crear Pelicula              | https://restapidisney.herokuapp.com/api/peliculas         | body   | titulo, , calificacion: "1" a "5",genero: id del genero,fechadecreacion, (key-token por header)
+| PUT    | Actualizar Peliculas        | https://restapidisney.herokuapp.com/api/peliculas/id      | params | id de la pelicula params
 | Delete | Borrar pelicula             | https://restapidisney.herokuapp.com/api/peliculas/id      | params | id (token de usuario administrador)                                                             |     |
 
 ### Personajes
@@ -50,7 +50,7 @@ La base de esta api es: https://restapidisney.herokuapp.com y puedes usarla con 
 (Para crear actualizar y eliminar pasar por header el key-token)
 
 | CRUD   | RESPONSE                     | ROUTE                                                 | SEND | INFO                              |
-| ------ | ---------------------------- | ----------------------------------------------------- | ---- | --------------------------------- | ---------------- |
+| ------ | ---------------------------- | ----------------------------------------------------- | ---- | --------------------------------- | 
 | GET    | Obtener todos los personajes | https://restapidisney.herokuapp.com/api/personajes    |      |
 | POST   | Crear personajes             | https://restapidisney.herokuapp.com/api/personajes    | body | nombre,historia,peliculaoserie:id |
 | PUT    | Actualizar Personaje         | https://restapidisney.herokuapp.com/api/personajes/id | body | id por params para actualizar     | nombre, historia |
@@ -70,8 +70,8 @@ La base de esta api es: https://restapidisney.herokuapp.com y puedes usarla con 
 # para cada uno debera ingresar la imagen por form-data - key = archivo
 
 | CRUD | RESPONSE                 | ROUTE                                                        | SEND   | INFO     |
-| ---- | ------------------------ | ------------------------------------------------------------ | ------ | -------- | --- |
-| PUT  | Agregar Imagen Usuario   | https://restapidisney.herokuapp.com/api/cargas/usuarios/id   | params |          | id  |
-| PUT  | Agregar Imagen Pelicula  | https://restapidisney.herokuapp.com /api/cargas/peliculas/id | params | id id    |
+| ---- | ------------------------ | ------------------------------------------------------------ | ------ | -------- |
+| PUT  | Agregar Imagen Usuario   | https://restapidisney.herokuapp.com/api/cargas/usuarios/id   | params |          | 
+| PUT  | Agregar Imagen Pelicula  | https://restapidisney.herokuapp.com /api/cargas/peliculas/id | params | id       |
 | PUT  | Agregar Imagen Personaje | https://restapidisney.herokuapp.com/api/cargas/personajes/id | params | id, name |
 | PUT  | Agregar Imagen Genero    | https://restapidisney.herokuapp.com/api/cargar/generos       | params | id       |
