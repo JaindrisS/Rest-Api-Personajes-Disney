@@ -52,4 +52,22 @@ const deleteMovie = async (id) => {
   return response;
 };
 
-module.exports = { getAll, create, details,deleteMovie };
+const update = async (id, data) => {
+  if (data.titulo) {
+    data.titulo = data.titulo.toUpperCase();
+  }
+
+  let dateUp = new Date();
+  let resultado = dateUp.toLocaleString();
+  data.upDate = resultado;
+
+  const result = {
+    ...data,
+  };
+
+  const response = await Pelicula.findByIdAndUpdate(id, result);
+
+  return response;
+};
+
+module.exports = { getAll, create, details, deleteMovie, update };
