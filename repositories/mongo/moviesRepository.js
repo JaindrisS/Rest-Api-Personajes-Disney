@@ -9,4 +9,18 @@ const getAll = async () => {
   return response;
 };
 
-module.exports = { getAll };
+const create = async (data) => {
+  const { estado, titulo, ...body } = data;
+
+  const datos = {
+    ...body,
+    titulo: titulo.toUpperCase(),
+  };
+  const peliculas = await new Pelicula(datos);
+
+  await peliculas.save();
+
+  return peliculas;
+};
+
+module.exports = { getAll, create };
