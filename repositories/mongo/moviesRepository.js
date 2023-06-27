@@ -43,4 +43,13 @@ const details = async () => {
   return response;
 };
 
-module.exports = { getAll, create, details };
+const deleteMovie = async (id) => {
+  const response = await Pelicula.findByIdAndUpdate(id, {
+    estado: false,
+    new: true,
+  });
+
+  return response;
+};
+
+module.exports = { getAll, create, details,deleteMovie };
