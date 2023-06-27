@@ -9,7 +9,7 @@ const getAll = async () => {
   return response;
 };
 
-const create = async (data,nombre) => {
+const create = async (data, nombre) => {
   const info = {
     ...data,
     nombre: nombre.toUpperCase(),
@@ -27,4 +27,11 @@ const create = async (data,nombre) => {
   return personaje;
 };
 
-module.exports = { getAll, create };
+const deleteCharacter = async (id) => {
+  const personaje = await Personaje.findByIdAndUpdate(id, {
+    estado: false,
+    new: true,
+  });
+};
+
+module.exports = { getAll, create, deleteCharacter };
