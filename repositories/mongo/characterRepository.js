@@ -28,10 +28,28 @@ const create = async (data, nombre) => {
 };
 
 const deleteCharacter = async (id) => {
-  const personaje = await Personaje.findByIdAndUpdate(id, {
+  const response = await Personaje.findByIdAndUpdate(id, {
     estado: false,
     new: true,
   });
+
+  return response;
 };
 
-module.exports = { getAll, create, deleteCharacter };
+const update = async (data) => {
+  if (data.nombre) {
+    data.nombre = data.nombre.toUpperCase();
+  }
+
+  let dateUp = new Date();
+  let result = dateUp.toLocaleString();
+  data.upDate = result;
+
+  const info = {
+    ...data,
+  };
+  const response = await Personaje.findByIdAndUpdate(id, info);
+  return response;
+};
+
+module.exports = { getAll, create, deleteCharacter, update };
