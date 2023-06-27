@@ -1,4 +1,4 @@
-const getAll = require("../../../repositories/mongo/characterRepository");
+const { getAll } = require("../../../repositories/mongo/characterRepository");
 const { request, response } = require("../characterModules");
 
 const listadoDePersonajes = async (req = request, res = response) => {
