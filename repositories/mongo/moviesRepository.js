@@ -23,4 +23,24 @@ const create = async (data) => {
   return peliculas;
 };
 
-module.exports = { getAll, create };
+const details = async () => {
+  const response = await Pelicula.aggregate([
+    {
+      $lookup: {
+        from: "personajes", //2
+        localField: "_id", //referencia al id de pelicula, 1 (pelicula)
+        foreignField: "peliculaoserie", //id coincida con el campo de personaje 2
+        as: "personajesAsociados",
+      },
+    },
+    {
+      $project: {
+        fechaDeCreacion: 0,
+      },
+    },
+  ]);
+
+  return response;
+};
+
+module.exports = { getAll, create, details };
