@@ -1,16 +1,14 @@
-const { request, response, Genero } = require("../genreModules");
+const { deleteGenre } = require("../../../repositories/mongo/genreRepository");
+const { request, response } = require("../genreModules");
 
 const borrarGenero = async (req = request, res = response) => {
   const { id } = req.params;
 
-  const borrarGenero = await Genero.findByIdAndUpdate(id, {
-    estado: false,
-    new: true,
-  });
+  const response = await deleteGenre(id);
 
-  res.json({
+  return res.status(200).json({
     msg: "Borrado con exito",
-    borrarGenero,
+    response,
   });
 };
 
