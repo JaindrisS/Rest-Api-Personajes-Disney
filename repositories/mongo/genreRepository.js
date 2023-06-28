@@ -21,4 +21,21 @@ const getAll = async () => {
   return response;
 };
 
-module.exports = { getAll };
+const create = async (data) => {
+  const nombre = data.nombre.toUpperCase();
+
+  const info = {
+    ...data,
+    nombre,
+  };
+
+  const genero = await new Genero(info);
+  let date = new Date();
+  result = date.toLocaleString();
+  genero.createAt = result;
+  await genero.save();
+
+  return genero;
+};
+
+module.exports = { getAll, create };
