@@ -47,4 +47,15 @@ const deleteGenre = async (id) => {
   return response;
 };
 
-module.exports = { getAll, create, deleteGenre };
+const update = async (id, data) => {
+  const info = {
+    ...data,
+    nombre: data.nombre.toUpperCase(),
+  };
+
+  const response = await Genero.findByIdAndUpdate(id, info);
+
+  return response;
+};
+
+module.exports = { getAll, create, deleteGenre, update };
