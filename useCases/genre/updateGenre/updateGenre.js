@@ -1,17 +1,14 @@
-const { request, response, Genero } = require("../genreModules");
+const { update } = require("../../../repositories/mongo/genreRepository");
+const { request, response } = require("../genreModules");
 const actualizarGenero = async (req = request, res = response) => {
   const { id } = req.params;
   const { ...body } = req.body;
-  const datos = {
-    ...body,
-    nombre: body.nombre.toUpperCase(),
-  };
 
-  const genero = await Genero.findByIdAndUpdate(id, datos);
+  const response = await update(id, body);
 
-  res.json({
+  return res.status(200).json({
     msg: "Genero actualizado",
-    genero,
+    response,
   });
 };
 
