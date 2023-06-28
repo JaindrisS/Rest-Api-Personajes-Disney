@@ -38,4 +38,13 @@ const create = async (data) => {
   return genero;
 };
 
-module.exports = { getAll, create };
+const deleteGenre = async (id) => {
+  const response = await Genero.findByIdAndUpdate(id, {
+    estado: false,
+    new: true,
+  });
+
+  return response;
+};
+
+module.exports = { getAll, create, deleteGenre };
