@@ -1,10 +1,9 @@
-const { Usuarios } = require("../userModules");
+const { get } = require("../../../repositories/mongo/authRepository");
 
 // Obtener usuarios guardados es la base de dats
 const obtenerUsuarios = async (req = request, res = response) => {
-  const usuario = await Usuarios.find({ estado: true });
-
-  res.status(200).json({ usuario });
+  const response = await get();
+  res.status(200).json({ response });
 };
 
 module.exports = {
