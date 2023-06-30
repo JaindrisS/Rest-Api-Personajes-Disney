@@ -1,8 +1,14 @@
-const { Usuarios } = require("../../models/usuario");
+const  Usuarios  = require("../../models/usuario");
 
-const get = async () => {
+const getAll = async () => {
   const response = await Usuarios.find({ estado: true });
-return response
+  return response;
 };
 
-module.exports = { get };
+const getOne = async (correo) => {
+  const response = await Usuarios.findOne({ correo });
+
+  return response;
+};
+
+module.exports = { getAll, getOne };
