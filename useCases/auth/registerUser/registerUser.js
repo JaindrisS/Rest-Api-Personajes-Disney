@@ -1,4 +1,5 @@
-const { response, bcryptjs, Usuarios, sendMail } = require("../userModules");
+const authRepository = require("../../../repositories/mongo/authRepository");
+const { response, bcryptjs, sendMail } = require("../userModules");
 // registrar el usuario
 const registrarUsuarios = async (req, res = response) => {
   const { _id, estado, google, rol, password, ...resto } = req.body;
@@ -8,7 +9,7 @@ const registrarUsuarios = async (req, res = response) => {
     password,
   };
 
-  const usuario = await new Usuarios(datos);
+  const usuario = await authRepository.create(datos);
   sendMail(usuario);
 
   //Encriptar password
@@ -16,12 +17,12 @@ const registrarUsuarios = async (req, res = response) => {
   usuario.password = bcryptjs.hashSync(password, salt);
 
   let date = new Date();
-  resultado = date.toLocaleString();
+  let resultado = date.toLocaleString();
   usuario.createAt = resultado;
   // guardar en db
   await usuario.save();
 
-  res.status(201).json({ usuario });
+  return res.status(201).json({ usuario });
 };
 
 module.exports = registrarUsuarios;
