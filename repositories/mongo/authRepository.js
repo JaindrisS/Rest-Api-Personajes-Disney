@@ -17,5 +17,12 @@ const create = async (data) => {
   return response;
 };
 
+const getByIdAndUpdate = async (id, resto) => {
+  const response = await Usuarios.findByIdAndUpdate(id, resto, {
+    new: true,
+  });
 
-module.exports = { getAll, getOne, create, save };
+  return response;
+};
+
+module.exports = { getAll, getOne, create, getByIdAndUpdate };
