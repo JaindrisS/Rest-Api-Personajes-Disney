@@ -1,14 +1,14 @@
-const { response, bcryptjs, Usuarios, generarJWT } = require("../userModules");
+const authRepository = require("../../../repositories/mongo/authRepository");
+const { response, bcryptjs, generarJWT } = require("../userModules");
 
 const acceso = async (req, res = response) => {
   const { correo, password } = req.body;
-  const { token } = req.body;
-  console.log(token);
+
   try {
     // verificando si el correo existe
-    const usuario = await Usuarios.findOne({ correo });
+    const usuario = await authRepository.getOne(correo);
     if (!usuario) {
-      return res.status(400).json({
+      return res.status(401).json({
         msg: "El usuario o el password no es valido",
       });
     }
@@ -16,7 +16,7 @@ const acceso = async (req, res = response) => {
     // verificar si el estado es true o a sido borrado
 
     if (!usuario.estado) {
-      return res.status(400).json({
+      return res.status(401).json({
         msg: "el usuario o el password no es valido - estado true",
       });
     }
@@ -26,7 +26,7 @@ const acceso = async (req, res = response) => {
     const passwordValido = bcryptjs.compareSync(password, usuario.password);
 
     if (!passwordValido) {
-      res.status(400).json({
+      res.status(401).json({
         msg: "el usuario o password no es valido -  password false",
       });
     }
@@ -34,7 +34,7 @@ const acceso = async (req, res = response) => {
     // crear jwt
     const token = await generarJWT(usuario.id);
 
-    res.json({
+    return res.status(200).json({
       msg: "acceso listo",
       usuario,
       token,

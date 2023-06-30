@@ -1,12 +1,10 @@
-const { request, response, Personaje } = require("../characterModules");
+const { getAll } = require("../../../repositories/mongo/characterRepository");
+const { request, response } = require("../characterModules");
 
 const listadoDePersonajes = async (req = request, res = response) => {
-  const personaje = await Personaje.find(
-    { estado: true },
-    { nombre: 1 }
-  ).populate("peliculaoserie", "titulo");
+  const response = await getAll();
 
-  res.status(201).json({ personaje });
+  return res.status(200).json({ response });
 };
 
 module.exports = listadoDePersonajes;

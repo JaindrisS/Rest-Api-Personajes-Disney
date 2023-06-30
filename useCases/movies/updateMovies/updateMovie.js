@@ -1,24 +1,13 @@
-const { request, response, Pelicula } = require("../moviesModules");
+const { update } = require("../../../repositories/mongo/moviesRepository");
+const { request, response } = require("../moviesModules");
 const actualizarPelicula = async (req = request, res = response) => {
   const { id } = req.params;
   const { _id, estado, ...body } = req.body;
 
-  if (body.titulo) {
-    body.titulo = body.titulo.toUpperCase();
-  }
+  const response = await update(id, body);
 
-  let dateUp = new Date();
-  let resultado = dateUp.toLocaleString();
-  body.upDate = resultado;
-
-  const datos = {
-    ...body,
-  };
-
-  const peliculas = await Pelicula.findByIdAndUpdate(id, datos);
-
-  res.json({
-    peliculas,
+  return res.json({
+    response,
   });
 };
 

@@ -1,4 +1,5 @@
-const { response, Usuarios } = require("../userModules");
+const authRepository = require("../../../repositories/mongo/authRepository");
+const { response } = require("../userModules");
 
 const actualizarUsuarios = async (req, res = response) => {
   const { id } = req.params;
@@ -10,11 +11,9 @@ const actualizarUsuarios = async (req, res = response) => {
   let resultado = dateUp.toLocaleString();
   resto.upDate = resultado;
   //busca la informacion en el body por el id y actualiza
-  const usuario = await Usuarios.findByIdAndUpdate(id, resto, {
-    new: true,
-  });
+  const usuario = await authRepository.getByIdAndUpdate(id, resto);
 
-  res.json({
+  return res.status(200).json({
     msg: `La informacion se actualizo con exito`,
     usuario,
   });
